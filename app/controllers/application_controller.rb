@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   def navigate_login?
     true
   end
-  
+
   def logged_in?
     current_user.present?
   end

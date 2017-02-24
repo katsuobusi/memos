@@ -6,6 +6,10 @@ class MemosController < ApplicationController
   # GET /memos.json
   def index
     @memos = current_user.memos.all
+    # if publish
+    #   @memos = Memo.all
+    #   return
+    # end
   end
 
   # GET /memos/1

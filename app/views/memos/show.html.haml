@@ -14,4 +14,8 @@
   %dd= @memo.body
 = link_to t('.back', :default => t("helpers.links.back")), memos_path, :class => 'btn btn-default'
 = link_to t('.edit', :default => t("helpers.links.edit")), edit_memo_path(@memo), :class => 'btn btn-default'
-= link_to t('.destroy', :default => t("helpers.links.destroy")), memo_path(@memo), :method => 'delete', :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'                                                                                   |
+= link_to t('.destroy', :default => t("helpers.links.destroy")), memo_path(@memo), :method => 'delete', :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'
+= link_to t('.publish', :default => t("helpers.links.publish")), memos_path(@memo), :method => 'post',:class => 'btn btn-default'
+-# - if publish
+-#   = link_to t('.private', :default => t("helpers.links.private"))
+-# end                                                            |
