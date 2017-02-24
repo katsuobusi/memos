@@ -1,10 +1,11 @@
 class MemosController < ApplicationController
+  before_action :login_required
   before_action :set_memo, only: [:show, :edit, :update, :destroy]
 
   # GET /memos
   # GET /memos.json
   def index
-    @memos = Memo.all
+    @memos = current_user.memos.all
   end
 
   # GET /memos/1
@@ -24,10 +25,9 @@ class MemosController < ApplicationController
   # POST /memos
   # POST /memos.json
   def create
-    @memo = Memo.new(memo_params)
+    @memo = current_user.memos.build(memo_params)
     respond_to do |format|
-      if logged_in?
-          @memo.save
+      if @memo.save
         format.html { redirect_to @memo, notice: 'Memo was successfully created.' }
         format.json { render :show, status: :created, location: @memo }
       else
@@ -62,9 +62,16 @@ class MemosController < ApplicationController
   end
 
   private
+    def login_required
+      if not logged_in?
+        redirect_to(new_session_path, alert: 'Please login')
+        return
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_memo
-      @memo = Memo.find(params[:user_id])
+      @memo = current_user.memos.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
