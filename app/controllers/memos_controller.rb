@@ -25,9 +25,9 @@ class MemosController < ApplicationController
   # POST /memos.json
   def create
     @memo = Memo.new(memo_params)
-
     respond_to do |format|
-      if @memo.save
+      if logged_in?
+          @memo.save
         format.html { redirect_to @memo, notice: 'Memo was successfully created.' }
         format.json { render :show, status: :created, location: @memo }
       else
@@ -64,7 +64,7 @@ class MemosController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_memo
-      @memo = Memo.find(params[:id])
+      @memo = Memo.find(params[:user_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
